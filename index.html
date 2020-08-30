@@ -86,22 +86,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="记录librosa-安装的一个问题"><a href="#记录librosa-安装的一个问题" class="headerlink" title="记录librosa 安装的一个问题"></a>记录librosa 安装的一个问题</h1><h2 id="librosa-使用了numba中修改的一个接口"><a href="#librosa-使用了numba中修改的一个接口" class="headerlink" title="librosa 使用了numba中修改的一个接口"></a>librosa 使用了numba中修改的一个接口</h2><h3 id="具体的问题："><a href="#具体的问题：" class="headerlink" title="具体的问题："></a>具体的问题：</h3><p>librosa 安装中出现依赖性错误。numba更改了接口，但是librosa没有限制使用指定版本的numba，导致安装了新版的numba。</p>
-<h4 id="出现问题版本记录："><a href="#出现问题版本记录：" class="headerlink" title="出现问题版本记录："></a>出现问题版本记录：</h4><p>librosa == 0.60<br>numba == 0.50.1</p>
-<p>在命令行中使用下面的命令：<code>python -c &quot;import librosa&quot;</code><br>出现下面报错信息：</p>
-<p><img src="https://gitee.com/chenryi/image_for_notes/raw/master/librosa-numba-fixed.png" alt="报错信息"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">  File &quot;C:\Users\chenr\Anaconda3\lib\site-packages\librosa\__init__.py&quot;, line 12, in &lt;module&gt;</span><br><span class="line">    from . import core</span><br><span class="line">  File &quot;C:\Users\chenr\Anaconda3\lib\site-packages\librosa\core\__init__.py&quot;, line 109, in &lt;module&gt;</span><br><span class="line">    from .time_frequency import *  # pylint: disable&#x3D;wildcard-import</span><br><span class="line">  File &quot;C:\Users\chenr\Anaconda3\lib\site-packages\librosa\core\time_frequency.py&quot;, line 10, in &lt;module&gt;</span><br><span class="line">    from ..util.exceptions import ParameterError</span><br><span class="line">  File &quot;C:\Users\chenr\Anaconda3\lib\site-packages\librosa\util\__init__.py&quot;, line 71, in &lt;module&gt;</span><br><span class="line">    from . import decorators</span><br><span class="line">    from . import decorators</span><br><span class="line">  File &quot;C:\Users\chenr\Anaconda3\lib\site-packages\librosa\util\decorators.py&quot;, line 9, in &lt;module&gt;</span><br><span class="line">    from numba.decorators import jit as optional_jit</span><br><span class="line">ModuleNotFoundError: No module named &#39;numba.decorators&#39;</span><br></pre></td></tr></table></figure>
-<h3 id="问题原因："><a href="#问题原因：" class="headerlink" title="问题原因："></a>问题原因：</h3><p>numba在0.49版本之后改变了接口，而librosa包没有严格限制numba的版本号</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>在github中有人已经提出这个问题，并且已经做出了修改，应该在librosa的0.8.0中改正了这个问题（没有测试）。<code>decorators.py</code>在0.8.0版本中删除了<code>optional_jit</code>的依赖。</p>
-<h3 id="临时的解决办法如下："><a href="#临时的解决办法如下：" class="headerlink" title="临时的解决办法如下："></a>临时的解决办法如下：</h3><p>如果不想更新版本来解决问题，参考github中给出的issure的解决办法：<a target="_blank" rel="noopener" href="https://github.com/bshall/librosa/commit/029dd47fd717073de877508db910155f0a384442">commit</a></p>
-<p>1.打开 <code>&lt;envs&gt;/Lib/site-packages/librosa/util/decorator.py</code>文件，<br><code>&lt;envs&gt;</code>是librosa包所在环境的路径。<br>2. 将<code>decorator.py</code>的包导入修改为如下所示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># from numba.decorators import jit as optional_jit</span><br><span class="line">import numba</span><br><span class="line">if (numba.__version__ &lt; &#39;0.49.0&#39;):</span><br><span class="line">    from numba.decorators import jit as optional_jit</span><br><span class="line">else:</span><br><span class="line">    from numba.core.decorators import jit as optional_jit</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/chenryi/image_for_notes/raw/master/librosa-numba-fixed.png" alt="改正成功"></p>
-
+        <p>记录librosa到一个安装中的问题和解决办法。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/08/30/librosa0-7-numba0-50-error/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/30/librosa0-7-numba0-50-error/" data-id="ckeggohk2000228v2erms8xaq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/30/librosa0-7-numba0-50-error/" data-id="ckeggqua000019cv2f2x14f6i" class="article-share-link">Share</a>
       
       
     </footer>
@@ -142,7 +136,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/18/hexo-github-blog/" data-id="ckeggohk1000128v21d8leshq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/18/hexo-github-blog/" data-id="ckeggqua200029cv29vyi62kk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -191,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/18/hello-world/" data-id="ckeggohjs000028v23m1c6djx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/18/hello-world/" data-id="ckeggqu9s00009cv2bqq08zga" class="article-share-link">Share</a>
       
       
     </footer>
