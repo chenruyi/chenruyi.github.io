@@ -86,32 +86,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-         <a id="more"></a>
-
-<h4 id="java数组"><a href="#java数组" class="headerlink" title="java数组"></a>java数组</h4><ul>
-<li>如何初始化</li>
-<li>循环操作</li>
-<li>数组长度<br>length是数组的一个属性。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] intArray; <span class="comment">// 声明</span></span><br><span class="line"><span class="keyword">int</span>[] intArray2 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>]; <span class="comment">//初始化，需要确定数组长度</span></span><br><span class="line"><span class="keyword">int</span> [] intArray2 = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;; <span class="comment">// 声明初始化</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span>[] nums)</span></span>&#123; </span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt; nums.length&gt;;i++)&#123; </span><br><span class="line">        sum += nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>拷贝<br>下面的结果是在jshell=11.0.3版本<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int[] a &#x3D; new int[]&#123;1,2,3&#125;; &#x2F;&#x2F;a &#x3D;&#x3D;&gt; int[3] &#123; 1, 2, 3 &#125;</span><br><span class="line">int[] b &#x3D; a; &#x2F;&#x2F;b &#x3D;&#x3D;&gt; int[3] &#123; 1, 2, 3 &#125;</span><br><span class="line">b[0] &#x3D; 4;</span><br><span class="line">a;b; </span><br><span class="line">&#x2F;&#x2F; a&#x3D;&#x3D;&gt; int[3] &#123; 4, 2, 3 &#125; ; a&#x3D;&#x3D;&gt; int[3] &#123; 4, 2, 3 &#125;</span><br></pre></td></tr></table></figure>
-上面的是浅拷贝<br>深度拷贝的简单思路是通过循环实现，在循环里面赋值，这样修改拷贝数组就不会影响原数组（针对对象的实现更加复杂，在这里先考虑基本类型的拷贝）。下面用字符串为例，调用<code>System.arraycopy</code>实现<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> String[] s1 = &#123;<span class="string">&quot;apple&quot;</span>,<span class="string">&quot;banana&quot;</span>&#125;</span><br><span class="line"><span class="comment">// s1 ==&gt; String[2] &#123; &quot;apple&quot;, &quot;banana&quot; &#125;</span></span><br><span class="line"> String[] s2 = <span class="keyword">new</span> String[<span class="number">4</span>];</span><br><span class="line"><span class="comment">//s2 ==&gt; String[4] &#123; null, null, null, null &#125;</span></span><br><span class="line"> System.arraycopy(s1,<span class="number">0</span>,s2,<span class="number">0</span>,<span class="number">2</span>)</span><br><span class="line"><span class="comment">// s2 ==&gt; String[4] &#123; &quot;apple&quot;, &quot;banana&quot;, null, null &#125;</span></span><br><span class="line"> s2[<span class="number">0</span>]=<span class="string">&quot;orange&quot;</span></span><br><span class="line"> s1;s2;</span><br><span class="line"><span class="comment">// s1 ==&gt; String[2] &#123; &quot;apple&quot;, &quot;banana&quot; &#125;</span></span><br><span class="line"><span class="comment">// s2 ==&gt; String[4] &#123; &quot;orange&quot;, &quot;banana&quot;, null, null &#125;</span></span><br></pre></td></tr></table></figure>
-<h4 id="java字符串"><a href="#java字符串" class="headerlink" title="java字符串"></a>java字符串</h4></li>
-<li>长度<br><code>length()</code>是java String的方法</li>
-<li>子串<br><code>substring(int beginIndex, int endIndex);</code>包括beginIndex, 不包括endIndex;</li>
-<li>字符<br><code>charAt(int index)</code>取指定下标的字符<br>下标范围：<code>[0, length()-1]</code>, 两边都包括<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String st = <span class="string">&quot;apple&quot;</span></span><br><span class="line">st.length() <span class="comment">// 5</span></span><br><span class="line">st.charAt(<span class="number">0</span>) <span class="comment">// &#x27;a&#x27;</span></span><br><span class="line">st.substring(<span class="number">0</span>,<span class="number">3</span>) <span class="comment">// &quot;app&quot;</span></span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ul>
-<h4 id="java-HashMap"><a href="#java-HashMap" class="headerlink" title="java HashMap"></a>java HashMap</h4><ul>
-<li>初始化</li>
-<li>K,V取值</li>
-<li>遍历<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap; <span class="comment">// 引入 HashMap 类</span></span><br><span class="line">HashMap&lt;Integer, String&gt; fruit = <span class="keyword">new</span> HashMap&lt;Integer, String&gt;();</span><br><span class="line">fruit.put(<span class="number">1</span>, <span class="string">&quot;apple&quot;</span>);</span><br><span class="line">fruit.put(<span class="number">2</span>, <span class="string">&quot;orange&quot;</span>);</span><br><span class="line">fruit.put(<span class="number">3</span>, <span class="string">&quot;banana&quot;</span>);</span><br><span class="line"><span class="comment">//  fruit ==&gt; &#123;1=apple, 2=orange, 3=banana&#125;</span></span><br><span class="line">fruit.put(<span class="number">3</span>, <span class="string">&quot;bus&quot;</span>);</span><br><span class="line"><span class="comment">// fruit ==&gt; &#123;1=apple, 2=orange, 3=bus&#125;</span></span><br><span class="line">fruit.replace(<span class="number">3</span>,<span class="string">&quot;bus&quot;</span>, <span class="string">&quot;banana&quot;</span>)</span><br><span class="line"><span class="comment">// fruit ==&gt; &#123;1=apple, 2=orange, 3=banana&#125;</span></span><br><span class="line">fruit.get(<span class="number">1</span>); <span class="comment">// &quot;apple&quot;</span></span><br><span class="line">fruit.containsKey(<span class="number">1</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">////  for each</span></span><br><span class="line"><span class="keyword">for</span> (Integer i : fruit.keySet()) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;key: &quot;</span> + i + <span class="string">&quot; value: &quot;</span> + fruit.get(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-
+        <p>记录在LeetCode上刷题过程中遇到的java基础知识</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/03/02/Java-Used-in-LeetCode/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/03/02/Java-Used-in-LeetCode/" data-id="ckls3eqh300031wv2f8cad7w9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/03/02/Java-Used-in-LeetCode/" data-id="ckls3i2ej0000wcv28c2h1lzr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li></ul>
@@ -154,7 +138,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/03/02/LeetCode-1-5/" data-id="ckls3eqgp00001wv21dbqg1g2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/03/02/LeetCode-1-5/" data-id="ckls3i2es0001wcv26q0a09eb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li></ul>
@@ -197,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/11/04/java-base-20-11-04/" data-id="ckls3eqh700051wv267uo650g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/11/04/java-base-20-11-04/" data-id="ckls3i2ey0005wcv21k7x8imq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
@@ -240,7 +224,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/09/27/jitsi-meeting-install/" data-id="ckls3eqh800071wv28tbf01x3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/09/27/jitsi-meeting-install/" data-id="ckls3i2f00007wcv2f5m19yfr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -281,7 +265,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/30/librosa0-7-numba0-50-error/" data-id="ckls3eqhm000m1wv25a2t4jv4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/30/librosa0-7-numba0-50-error/" data-id="ckls3i2f20009wcv2eomt44ce" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
@@ -324,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/18/hexo-github-blog/" data-id="ckls3eqh500041wv20tjh9sz9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/18/hexo-github-blog/" data-id="ckls3i2ex0004wcv2dr48dmt7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
@@ -367,7 +351,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/18/hello-world/" data-id="ckls3eqgy00011wv29ll00ail" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/18/hello-world/" data-id="ckls3i2ew0003wcv21ijsatb8" class="article-share-link">Share</a>
       
       
     </footer>
