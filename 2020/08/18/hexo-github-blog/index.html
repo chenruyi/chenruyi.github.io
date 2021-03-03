@@ -226,44 +226,25 @@
 
       
         <p>在github上搭建博客的过程的记录。</p>
- <a id="more"></a>
-
-
-
-<h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ul>
-<li>git<br>官网：<a target="_blank" rel="noopener" href="https://git-scm.com/">https://git-scm.com/</a></li>
-<li>node<br>官网：<a target="_blank" rel="noopener" href="http://nodejs.cn/">http://nodejs.cn/</a><br>下载的方法见官网链接，在此就不多说了。其中git可以选择github客户端等而不是命令行。<br>建议通过镜像网站下载软件，否则下载速度非常慢，可以考虑<a target="_blank" rel="noopener" href="https://npm.taobao.org/mirrors/">淘宝镜像</a>。<br>系统：windows 10</li>
+<p><a id="more"></a></p>
+<h2 id="环境说明">环境说明</h2>
+<ul>
+<li>git 官网：<a target="_blank" rel="noopener" href="https://git-scm.com/">https://git-scm.com/</a></li>
+<li>node 官网：<a target="_blank" rel="noopener" href="http://nodejs.cn/">http://nodejs.cn/</a> 下载的方法见官网链接，在此就不多说了。其中git可以选择github客户端等而不是命令行。 建议通过镜像网站下载软件，否则下载速度非常慢，可以考虑<a target="_blank" rel="noopener" href="https://npm.taobao.org/mirrors/">淘宝镜像</a>。 系统：windows 10</li>
 </ul>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
-<li><p>注册github账号<br>因为使用github提供的 GitHub Pages 服务，所以需要先注册github账号，如果已有可以跳过这部分内容，<br>如果没有账号的话，可以通过邮箱在github官网上注册账号。</p>
-</li>
-<li><p>配置github SSH key<br>使用的hexo是通过git来将文件传递到github仓库中的，为了避免每次提交的时候都要验证身份（输入邮箱密码），通过配置sshkey来偷懒，非必须。具体步骤如下：<br> 2.1 生成key<br> 运行命令 ssh-keygen, （git安装后自带的程序）,全部默认，会在用户目录的.ssh目录（隐藏文件夹）下生成 id_rsa, id_rsa.pub文件，<br> 打开id_rsa.pub就是后面需要的key<br> 2.2 保存到github账户中<br> 登录github账号，选择：setting –&gt; SSH and GPG keys，选择”new ssh key”，然后将id_rsa.pub的内容复制到“key”文本框中，保存。</p>
-</li>
-<li><p>GitHub Pages使用<br> 将GitHub Pages作为一个静态网站托管平台，能够方便别人的访问，同时利用git来管理自己的博客内容。<br> 3.1 创建仓库<br> 创建 github公开仓库，仓库名称为 <code>&lt;用户名&gt;.github.io</code>，选择带有Readme.md<br> 3.2 打开GitHub Pages服务<br> 在浏览器中打开建立的仓库，选择仓库的setting –&gt; options，然后选择 GitHub Pages，（这里 GitHub Pages在页面的底部，不是另一个页面），选择branch为master，保存。当提示<code>Your site is published at ...</code> 时说明成功。打开上面的链接，就能够看到Readme.md的相关内容。<br> 3.3 使用<br> 到这里，就利用GitHub Pages建立了一个静态网页，我们可以通过在这个仓库中手动增加静态网页的方式来完成内容的展示，但是非常麻烦，所以下面介绍Hexo这一博客框架来简化操作。</p>
-</li>
-<li><p>Hexo使用<br> Hexo的官网是<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">hexo.io</a>，是一个博客框架。主要特点是插件丰富，功能足够。主要用到的功能有： 自动部署，在本地写Markdown文件，然后通过简单的一行命令就能够转换为html文件并且部署到githubpages中。之后再结合相关的设置和插件来修改界面外观等。<br> 4.1 安装<br> 建议使用镜像网站，比如：<a target="_blank" rel="noopener" href="https://developer.aliyun.com/mirror/NPM?from=tnpm">淘宝镜像</a></p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure>
-<p> 4.2 使用<br> hexo常用命令有：<code>generate, deploy, server, new</code>等，可以参考官网来找到更多的命令。</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd your_project # 进入一个空文件夹，作为项目的根目录</span><br><span class="line">hexo init #初始化，生成模板文件和代码</span><br><span class="line">npm install # 安装依赖的包</span><br></pre></td></tr></table></figure>
-<p> 上面就建立成功了一个博客网站的demo，可以通过<code>hexo g</code>, <code>hexo s</code>,在本地部署来看一下网站的效果。</p>
-<p> 4.3 写博客<br> 每次写博客并且生成静态网页的命令如下：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd your_project</span><br><span class="line">hexo new &quot;this blog name&quot;</span><br><span class="line">hexo g # 生成</span><br></pre></td></tr></table></figure>
-
-<p> 4.4 部署<br> 上面完成了本地的部署，下面的任务就是将这个部署改为在GitHub Pages上部署。<br> 安装部署的工具包<code>hexo-deployer-git</code></p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd you_project</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<p> 修改hexo配置，将部署改为git。将<code>&lt;you_project&gt;/_config.yml</code>文件最后的内容参考如下内容修改：</p>
- <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: &lt;repository url&gt; #git@github.com:chenruyi/chenruyi.github.io.git</span><br><span class="line">  branch: [branch] #master</span><br></pre></td></tr></table></figure>
-<p> 每次写完博客之后，通过<code>hexo clean</code>,<code>hexo deploy</code>命令来更新并部署内容。</p>
-</li>
-</ol>
-<ol start="5">
-<li>继续美化<br> 现在的博客已经完成了主要的部分，还可以继续美化。。。。。</li>
-</ol>
-<ol start="6">
-<li>下面记录一些常见到修改和配置（不定期更新）</li>
+<h2 id="步骤">步骤</h2>
+<ol type="1">
+<li><p>注册github账号 因为使用github提供的 GitHub Pages 服务，所以需要先注册github账号，如果已有可以跳过这部分内容， 如果没有账号的话，可以通过邮箱在github官网上注册账号。</p></li>
+<li><p>配置github SSH key 使用的hexo是通过git来将文件传递到github仓库中的，为了避免每次提交的时候都要验证身份（输入邮箱密码），通过配置sshkey来偷懒，非必须。具体步骤如下： 2.1 生成key 运行命令 ssh-keygen, （git安装后自带的程序）,全部默认，会在用户目录的.ssh目录（隐藏文件夹）下生成 id_rsa, id_rsa.pub文件， 打开id_rsa.pub就是后面需要的key 2.2 保存到github账户中 登录github账号，选择：setting --&gt; SSH and GPG keys，选择"new ssh key"，然后将id_rsa.pub的内容复制到“key”文本框中，保存。</p></li>
+<li><p>GitHub Pages使用 将GitHub Pages作为一个静态网站托管平台，能够方便别人的访问，同时利用git来管理自己的博客内容。 3.1 创建仓库 创建 github公开仓库，仓库名称为 <code>&lt;用户名&gt;.github.io</code>，选择带有Readme.md 3.2 打开GitHub Pages服务 在浏览器中打开建立的仓库，选择仓库的setting --&gt; options，然后选择 GitHub Pages，（这里 GitHub Pages在页面的底部，不是另一个页面），选择branch为master，保存。当提示<code>Your site is published at ...</code> 时说明成功。打开上面的链接，就能够看到Readme.md的相关内容。 3.3 使用 到这里，就利用GitHub Pages建立了一个静态网页，我们可以通过在这个仓库中手动增加静态网页的方式来完成内容的展示，但是非常麻烦，所以下面介绍Hexo这一博客框架来简化操作。</p></li>
+<li><p>Hexo使用 Hexo的官网是<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">hexo.io</a>，是一个博客框架。主要特点是插件丰富，功能足够。主要用到的功能有： 自动部署，在本地写Markdown文件，然后通过简单的一行命令就能够转换为html文件并且部署到githubpages中。之后再结合相关的设置和插件来修改界面外观等。 4.1 安装 建议使用镜像网站，比如：<a target="_blank" rel="noopener" href="https://developer.aliyun.com/mirror/NPM?from=tnpm">淘宝镜像</a> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure> 4.2 使用 hexo常用命令有：<code>generate, deploy, server, new</code>等，可以参考官网来找到更多的命令。 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd your_project # 进入一个空文件夹，作为项目的根目录</span><br><span class="line">hexo init #初始化，生成模板文件和代码</span><br><span class="line">npm install # 安装依赖的包</span><br></pre></td></tr></table></figure> 上面就建立成功了一个博客网站的demo，可以通过<code>hexo g</code>, <code>hexo s</code>,在本地部署来看一下网站的效果。</p>
+<p>4.3 写博客 每次写博客并且生成静态网页的命令如下： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd your_project</span><br><span class="line">hexo new &quot;this blog name&quot;</span><br><span class="line">hexo g # 生成</span><br></pre></td></tr></table></figure></p>
+<p>4.4 部署 上面完成了本地的部署，下面的任务就是将这个部署改为在GitHub Pages上部署。 安装部署的工具包<code>hexo-deployer-git</code> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd you_project</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure> 修改hexo配置，将部署改为git。将<code>&lt;you_project&gt;/_config.yml</code>文件最后的内容参考如下内容修改： <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: &lt;repository url&gt; #git@github.com:chenruyi/chenruyi.github.io.git</span><br><span class="line">  branch: [branch] #master</span><br></pre></td></tr></table></figure> 每次写完博客之后，通过<code>hexo clean</code>,<code>hexo deploy</code>命令来更新并部署内容。</p></li>
+<li><p>继续美化 现在的博客已经完成了主要的部分，还可以继续美化。。。。。</p></li>
+<li><p>下面记录一些常见到修改和配置（不定期更新）</p></li>
 </ol>
 <ul>
-<li>设置首页不显示全文，只显示摘要<br>  采用的方法是使用<code> &lt;!-- more --&gt;</code>标签，在<code>---</code>（后一个）和<code> &lt;!-- more --&gt;</code>之间的内容是摘要，在首页上显示，并且自动添加<code>Read More</code>跳转到博客内容页面，注意的是这部分摘要在这篇blog中也会出现。<br>  使用方法：正常写blog中的内容，并且在开头增加一个摘要部分。</li>
+<li>设置首页不显示全文，只显示摘要 采用的方法是使用<code>&lt;!-- more --&gt;</code>标签，在<code>---</code>（后一个）和<code>&lt;!-- more --&gt;</code>之间的内容是摘要，在首页上显示，并且自动添加<code>Read More</code>跳转到博客内容页面，注意的是这部分摘要在这篇blog中也会出现。 使用方法：正常写blog中的内容，并且在开头增加一个摘要部分。</li>
 </ul>
 
     </div>
@@ -455,6 +436,8 @@
 
 
 
+
+  
 
   
 
