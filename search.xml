@@ -82,6 +82,25 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2020/08/18/hello-world/</url>
+    <content><![CDATA[<p>Hello word for Hexo. <a id="more"></a> Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>LeetCode 8-9 </title>
     <url>/2021/03/05/LeetCode-8-9/</url>
     <content><![CDATA[<p>LeetCode 8-9题的算法记录 Z 字形变换 回文数 <a id="more"></a></p>
@@ -101,25 +120,6 @@
         <tag>java</tag>
         <tag>leetcode</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/08/18/hello-world/</url>
-    <content><![CDATA[<p>Hello word for Hexo. <a id="more"></a> Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>hexo和GitHub Pages 搭建个人博客</title>
@@ -180,6 +180,25 @@
 ]]></content>
       <tags>
         <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java mysql redis ubuntu install</title>
+    <url>/2021/03/06/java-mysql-redis-ubuntu-install/</url>
+    <content><![CDATA[<p>Ubuntu 20.04 java开发部署环境配置，主要是 java11, mysql, redis的安装和配置. <a id="more"></a></p>
+<h3 id="java">java</h3>
+<p>jdk版本: openjdk11 安装命令 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install openjdk-11-jre-headless</span><br></pre></td></tr></table></figure> 安装后使用helloworld.java检测环境配置 &gt; 注意的是java 11提供了<a href="https://openjdk.java.net/jeps/330">JEP 330: Launch Single-File Source-Code Programs</a>使用单个命令来运行.java文件。 &gt; 源代码在内存中编译，然后由解释器执行，而不需要在磁盘上生成.class 文件了。但是，该特性仅限于保存在单个源文件中的代码。不能在同一个运行编译中添加其他源文件。为了满足这个限制，所有的类都必须在同一个文件中定义，不过它对文件中类的数量没有限制，并且类既可声明为公共类，也可以不是，因为只要它们在同一个源文件中就没关系。源文件中声明的第一个类将被提取出来作为主类，我们应该将 main 方法放在第一个类中。所以类的顺序很重要。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -version</span><br><span class="line">java HelloWorld.java &#x2F;&#x2F; if using jdk8: javac HelloWorld.java; java HelloWorld;</span><br></pre></td></tr></table></figure>
+<p>结果截图 <img src="https://gitee.com/chenryi/image_for_notes/raw/master/20210306221844.png" alt="Java HelloWorld" /></p>
+<h3 id="mysql">mysql</h3>
+<p>参考<a href="https://www.itcoder.tech/posts/how-to-install-mysql-on-ubuntu-20-04/?spm=a2c4e.10696291.0.0.6b6419a4epAPfn">ITCoder</a> 安装mysql，运行下面的命令 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install mysql-server</span><br></pre></td></tr></table></figure> 检查mysql是否成功启动 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo systemctl status mysql</span><br></pre></td></tr></table></figure> 截图如下 <img src="https://gitee.com/chenryi/image_for_notes/raw/master/20210306222652.png" alt="mysql status" /></p>
+<p>mysql 简单配置 运行mysql_secure_installation（安装mysql时也会安装） <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo mysql_secure_installation</span><br></pre></td></tr></table></figure> 上面的命令会提示设置密码验证策略和设置root用户的密码。 为了能够通过java来访问数据库，采用增加一个专门用来完成数据库的访问的用户。具体的操作如下。 首先进入mysql shell 执行环境（运行<code>mysql -u root -p</code>命令） <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 增加用户</span><br><span class="line">CREATE USER &#39;test&#39;@&#39;%&#39; IDENTIFIED BY &#39;1234&#39;; </span><br><span class="line">&#x2F;&#x2F; 用户名:test 密码:1234(示例，需要符合之前设置的密码验证策略), &#39;%&#39;指任意电脑能够远程登录，&#39;localhost&#39;:只能本地登录</span><br><span class="line">&#x2F;&#x2F;修改权限</span><br><span class="line">&#x2F;&#x2F; 模板: grant 权限 on 数据库对象 to 用户</span><br><span class="line">grant all on *.* to &#39;test&#39;@&#39;%&#39;; </span><br></pre></td></tr></table></figure> ### redis 参考<a href="https://developer.aliyun.com/article/645910">阿里云开发社区</a> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 安装redis服务</span><br><span class="line">sudo apt install redis-server</span><br></pre></td></tr></table></figure> 测试是否安装成功 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 检查是否启动redis服务，运行下面命令，应该提示端口被占用</span><br><span class="line">redis-server</span><br><span class="line">ps -aux | grep redis</span><br></pre></td></tr></table></figure> <img src="https://gitee.com/chenryi/image_for_notes/raw/master/20210306225149.png" alt="成功启动" /></p>
+]]></content>
+      <tags>
+        <tag>java</tag>
+        <tag>linux</tag>
+        <tag>mysql</tag>
+        <tag>redis</tag>
       </tags>
   </entry>
   <entry>
