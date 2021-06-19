@@ -28,7 +28,7 @@
 <meta property="og:description" content="tqdm 使用过程中的遇到问题的记录">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-06-19T13:16:47.000Z">
-<meta property="article:modified_time" content="2021-06-19T14:29:07.839Z">
+<meta property="article:modified_time" content="2021-06-19T14:30:38.976Z">
 <meta property="article:author" content="Ruyi">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="tqdm">
@@ -204,7 +204,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-06-19 21:16:47 / Modified: 22:29:07" itemprop="dateCreated datePublished" datetime="2021-06-19T21:16:47+08:00">2021-06-19</time>
+              <time title="Created: 2021-06-19 21:16:47 / Modified: 22:30:38" itemprop="dateCreated datePublished" datetime="2021-06-19T21:16:47+08:00">2021-06-19</time>
             </span>
 
           
@@ -229,7 +229,11 @@
 <h3 id="遇到问题">遇到问题</h3>
 <p>但是运行下面的语句时，进度条的样式不同 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(enumerate(range(<span class="number">100</span>)), total=<span class="number">100</span>):              </span><br><span class="line">        sleep(<span class="number">0.1</span>) <span class="comment"># 模拟执行</span></span><br></pre></td></tr></table></figure> 输出的样式是：</p>
 <pre><code>14it [00:01,  8.99it/s]</code></pre>
-<p>很显然和上面的不一样，查找后发现问题是tqdm的参数输入在官网上说明的是迭代器类型（实现<code>__next__</code>方法），比如: <code>list, range, range</code> 等，<code>enumerate</code>函数返回的对象也是合法的参数输入，但是前面的类型有一个<code>__len__</code>方法，而<code>enumerate</code>返回的对象没有<code>__len__</code>方法，导致没有办法估计预估执行时间，所以输出的格式和预期不符。 修改方法有2种： - 使用tqdm(enumerate(...), total=...) <code>tqdm</code>提供额外的参数<code>total</code>来处理这种情况。 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(enumerate(range(<span class="number">100</span>)), total=<span class="number">100</span>):              </span><br><span class="line">        sleep(<span class="number">0.1</span>) <span class="comment"># 模拟执行</span></span><br></pre></td></tr></table></figure> - 使用 enumerate(tqdm(...)) <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for i in enumerate(tqdm(range(100))):              </span><br><span class="line">        sleep(0.1) # 模拟执行</span><br></pre></td></tr></table></figure></p>
+<p>很显然和上面的不一样，查找后发现问题是tqdm的参数输入在官网上说明的是迭代器类型（实现<code>__next__</code>方法），比如: <code>list, range, range</code> 等，<code>enumerate</code>函数返回的对象也是合法的参数输入，但是前面的类型有一个<code>__len__</code>方法，而<code>enumerate</code>返回的对象没有<code>__len__</code>方法，导致没有办法估计预估执行时间，所以输出的格式和预期不符。 修改方法有2种：</p>
+<ul>
+<li><p>使用tqdm(enumerate(...), total=...) <code>tqdm</code>提供额外的参数<code>total</code>来处理这种情况。 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(enumerate(range(<span class="number">100</span>)), total=<span class="number">100</span>):              </span><br><span class="line">        sleep(<span class="number">0.1</span>) <span class="comment"># 模拟执行</span></span><br></pre></td></tr></table></figure></p></li>
+<li><p>使用 enumerate(tqdm(...)) <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for i in enumerate(tqdm(range(100))):              </span><br><span class="line">        sleep(0.1) # 模拟执行</span><br></pre></td></tr></table></figure></p></li>
+</ul>
 <h4 id="备注">备注</h4>
 <p>关于上面的内容可以查看tqdm的文档，在其中有更多的使用例子。 文档路径： <a target="_blank" rel="noopener" href="https://pypi.org/project/tqdm/#convenience-functions">tqdm doc</a> 比如上面的内容可以查看<a target="_blank" rel="noopener" href="https://pypi.org/project/tqdm/#faq-and-known-issues">faq-and-known-issues</a>中Wrapping generators的说明。</p>
 
