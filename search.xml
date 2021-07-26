@@ -10,7 +10,10 @@
 <li>如何初始化</li>
 <li>循环操作</li>
 <li>数组长度 length是数组的一个属性。 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] intArray; <span class="comment">// 声明</span></span><br><span class="line"><span class="keyword">int</span>[] intArray2 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>]; <span class="comment">//初始化，需要确定数组长度</span></span><br><span class="line"><span class="keyword">int</span> [] intArray2 = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;; <span class="comment">// 声明初始化</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span>[] nums)</span></span>&#123; </span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt; nums.length&gt;;i++)&#123; </span><br><span class="line">        sum += nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>拷贝 下面的结果是在jshell=11.0.3版本 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int[] a &#x3D; new int[]&#123;1,2,3&#125;; &#x2F;&#x2F;a &#x3D;&#x3D;&gt; int[3] &#123; 1, 2, 3 &#125;</span><br><span class="line">int[] b &#x3D; a; &#x2F;&#x2F;b &#x3D;&#x3D;&gt; int[3] &#123; 1, 2, 3 &#125;</span><br><span class="line">b[0] &#x3D; 4;</span><br><span class="line">a;b; </span><br><span class="line">&#x2F;&#x2F; a&#x3D;&#x3D;&gt; int[3] &#123; 4, 2, 3 &#125; ; a&#x3D;&#x3D;&gt; int[3] &#123; 4, 2, 3 &#125;</span><br></pre></td></tr></table></figure> 上面的是浅拷贝 深度拷贝的简单思路是通过循环实现，在循环里面赋值，这样修改拷贝数组就不会影响原数组（针对对象的实现更加复杂，在这里先考虑基本类型的拷贝）。下面用字符串为例，调用<code>System.arraycopy</code>实现 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> String[] s1 = &#123;<span class="string">&quot;apple&quot;</span>,<span class="string">&quot;banana&quot;</span>&#125;</span><br><span class="line"><span class="comment">// s1 ==&gt; String[2] &#123; &quot;apple&quot;, &quot;banana&quot; &#125;</span></span><br><span class="line"> String[] s2 = <span class="keyword">new</span> String[<span class="number">4</span>];</span><br><span class="line"><span class="comment">//s2 ==&gt; String[4] &#123; null, null, null, null &#125;</span></span><br><span class="line"> System.arraycopy(s1,<span class="number">0</span>,s2,<span class="number">0</span>,<span class="number">2</span>)</span><br><span class="line"><span class="comment">// s2 ==&gt; String[4] &#123; &quot;apple&quot;, &quot;banana&quot;, null, null &#125;</span></span><br><span class="line"> s2[<span class="number">0</span>]=<span class="string">&quot;orange&quot;</span></span><br><span class="line"> s1;s2;</span><br><span class="line"><span class="comment">// s1 ==&gt; String[2] &#123; &quot;apple&quot;, &quot;banana&quot; &#125;</span></span><br><span class="line"><span class="comment">// s2 ==&gt; String[4] &#123; &quot;orange&quot;, &quot;banana&quot;, null, null &#125;</span></span><br></pre></td></tr></table></figure> #### java字符串</li>
+<li>拷贝 下面的结果是在jshell=11.0.3版本 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int[] a &#x3D; new int[]&#123;1,2,3&#125;; &#x2F;&#x2F;a &#x3D;&#x3D;&gt; int[3] &#123; 1, 2, 3 &#125;</span><br><span class="line">int[] b &#x3D; a; &#x2F;&#x2F;b &#x3D;&#x3D;&gt; int[3] &#123; 1, 2, 3 &#125;</span><br><span class="line">b[0] &#x3D; 4;</span><br><span class="line">a;b; </span><br><span class="line">&#x2F;&#x2F; a&#x3D;&#x3D;&gt; int[3] &#123; 4, 2, 3 &#125; ; a&#x3D;&#x3D;&gt; int[3] &#123; 4, 2, 3 &#125;</span><br></pre></td></tr></table></figure> 上面的是浅拷贝 深度拷贝的简单思路是通过循环实现，在循环里面赋值，这样修改拷贝数组就不会影响原数组（针对对象的实现更加复杂，在这里先考虑基本类型的拷贝）。下面用字符串为例，调用<code>System.arraycopy</code>实现 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> String[] s1 = &#123;<span class="string">&quot;apple&quot;</span>,<span class="string">&quot;banana&quot;</span>&#125;</span><br><span class="line"><span class="comment">// s1 ==&gt; String[2] &#123; &quot;apple&quot;, &quot;banana&quot; &#125;</span></span><br><span class="line"> String[] s2 = <span class="keyword">new</span> String[<span class="number">4</span>];</span><br><span class="line"><span class="comment">//s2 ==&gt; String[4] &#123; null, null, null, null &#125;</span></span><br><span class="line"> System.arraycopy(s1,<span class="number">0</span>,s2,<span class="number">0</span>,<span class="number">2</span>)</span><br><span class="line"><span class="comment">// s2 ==&gt; String[4] &#123; &quot;apple&quot;, &quot;banana&quot;, null, null &#125;</span></span><br><span class="line"> s2[<span class="number">0</span>]=<span class="string">&quot;orange&quot;</span></span><br><span class="line"> s1;s2;</span><br><span class="line"><span class="comment">// s1 ==&gt; String[2] &#123; &quot;apple&quot;, &quot;banana&quot; &#125;</span></span><br><span class="line"><span class="comment">// s2 ==&gt; String[4] &#123; &quot;orange&quot;, &quot;banana&quot;, null, null &#125;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="java字符串">java字符串</h4>
+<ul>
 <li>长度 <code>length()</code>是java String的方法</li>
 <li>子串 <code>substring(int beginIndex, int endIndex);</code>包括beginIndex, 不包括endIndex;</li>
 <li>字符 <code>charAt(int index)</code>取指定下标的字符 下标范围：<code>[0, length()-1]</code>, 两边都包括 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String st = <span class="string">&quot;apple&quot;</span></span><br><span class="line">st.length() <span class="comment">// 5</span></span><br><span class="line">st.charAt(<span class="number">0</span>) <span class="comment">// &#x27;a&#x27;</span></span><br><span class="line">st.substring(<span class="number">0</span>,<span class="number">3</span>) <span class="comment">// &quot;app&quot;</span></span><br></pre></td></tr></table></figure></li>
@@ -270,12 +273,13 @@
 <p><code>tqdm</code>是一个简单适用的终端进度条python库。 模板如下： <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm </span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(range(<span class="number">100</span>)):              </span><br><span class="line">        sleep(<span class="number">0.1</span>) <span class="comment"># 模拟执行</span></span><br></pre></td></tr></table></figure> 执行上面的命令就会出现一个进度条，如下所示</p>
 <pre><code>25%|███████████                       | 25/100 [00:02&lt;00:08,  9.01it/s]</code></pre>
 <p>上面的进度条能够显示执行的进展，下面是默认情况下的提示信息含义：</p>
-<p>25/100: 已经执行的次数/总共需要执行的长度</p>
+<p>25/100: 已经执行的次数/总共需要执行的次数</p>
 <p>00:02&lt;00:08, 9.01it/s : 运行时间 &lt; 估计剩余时间, 每次执行的耗时/秒</p>
 <h3 id="遇到问题">遇到问题</h3>
 <p>但是运行下面的语句时，进度条的样式不同 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(enumerate(range(<span class="number">100</span>)), total=<span class="number">100</span>):              </span><br><span class="line">        sleep(<span class="number">0.1</span>) <span class="comment"># 模拟执行</span></span><br></pre></td></tr></table></figure> 输出的样式是：</p>
 <pre><code>14it [00:01,  8.99it/s]</code></pre>
-<p>很显然和上面的不一样，查找后发现问题是tqdm的参数输入在官网上说明的是迭代器类型（实现<code>__next__</code>方法），比如: <code>list, range, range</code> 等，<code>enumerate</code>函数返回的对象也是合法的参数输入，但是前面的类型有一个<code>__len__</code>方法，而<code>enumerate</code>返回的对象没有<code>__len__</code>方法，导致没有办法估计预估执行时间，所以输出的格式和预期不符。 修改方法有2种：</p>
+<p>很显然和上面的不一样，查找后发现问题是tqdm的参数输入在官网上说明的是迭代器类型（实现<code>__next__</code>方法），比如: <code>list, range, range</code> 等，<code>enumerate</code>函数返回的对象也是合法的参数输入，但是前面的类型有一个<code>__len__</code>方法，而<code>enumerate</code>返回的对象没有<code>__len__</code>方法，导致没有办法估计预估执行时间，所以输出的格式和预期不符。</p>
+<p>修改方法有2种：</p>
 <ul>
 <li><p>使用tqdm(enumerate(...), total=...) <code>tqdm</code>提供额外的参数<code>total</code>来处理这种情况。 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm(enumerate(range(<span class="number">100</span>)), total=<span class="number">100</span>):              </span><br><span class="line">        sleep(<span class="number">0.1</span>) <span class="comment"># 模拟执行</span></span><br></pre></td></tr></table></figure></p></li>
 <li><p>使用 enumerate(tqdm(...)) <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for i in enumerate(tqdm(range(100))):              </span><br><span class="line">        sleep(0.1) # 模拟执行</span><br></pre></td></tr></table></figure></p></li>
@@ -286,6 +290,95 @@
       <tags>
         <tag>python</tag>
         <tag>tqdm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java job interview 20210726</title>
+    <url>/2021/07/26/java-job-interview-20210726/</url>
+    <content><![CDATA[<p>准备java后端开发面试的问题 <a id="more"></a> - java的基本类型，String类型，StringBuffer和StringBuffer Java提供了8种基本类型：<code>byte, short, int, long, float, double, boolean, char</code></p>
+<p>String类是java中创建和操作字符串的类。属于引用类型。是不可变的。 java中不可变对象的定义： （1）类内部所有的字段都是final修饰的。（2）类内部所有的字段都是私有的，也就是被private修饰。（3）类不能够被集成和拓展。（4）类不能够对外提供哪些能够修改内部状态的方法，setter方法也不行。（5）类内部的字段如果是引用，也就是说可以指向可变对象，那我们程序员不能获取这个应用。 String类用final修饰，并且内容的字符串数组也是<code>private final char value[]</code>(java 1.8),java 9之后改为了`<code>private final char value[]</code>，通常情况下是不能进行修改的。 如何通过反射修改String 通过反射机制来修改 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line">String str = <span class="string">&quot;aaaaaaa&quot;</span>;</span><br><span class="line">Field field = String.class.getDeclaredField(&quot;value&quot;);</span><br><span class="line">field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">char</span> [] value = (<span class="keyword">char</span> []) field.get(str);</span><br><span class="line"><span class="comment">// if java &gt;=1.9, using next line.</span></span><br><span class="line"><span class="comment">// byte [] value = (byte []) field.get(str);</span></span><br><span class="line">value[<span class="number">0</span>] = <span class="string">&#x27;b&#x27;</span>;</span><br><span class="line">System.out.println(str);</span><br></pre></td></tr></table></figure> 为什么java中String类型是不可变的： 第一：在Java程序中String类型是使用最多的，这就牵扯到大量的增删改查，每次增删改差之前其实jvm需要检查一下这个String对象的安全性，就是通过hashcode，当设计成不可变对象时候，就保证了每次增删改查的hashcode的唯一性，也就可以放心的操作。 第二：网络连接地址URL,文件路径path通常情况下都是以String类型保存, 假若String不是固定不变的,将会引起各种安全隐患。就好比我们的密码不能以String的类型保存，，如果你将密码以明文的形式保存成字符串，那么它将一直留在内存中，直到垃圾收集器把它清除。而由于字符串被放在字符串缓冲池中以方便重复使用，所以它就可能在内存中被保留很长时间，而这将导致安全隐患。第三：字符串值是被保留在常量池中的，也就是说假若字符串对象允许改变,那么将会导致各种逻辑错误。</p>
+<p>StringBuffer和StringBuilder是字符串修改时使用，修改时对对象本身进行操作，不是生成新的对象。 StringBuffer是线程安全的，StringBuilder不是线程安全的（不能同步访问，但是效率更高</p>
+<ul>
+<li><p>反射机制</p></li>
+<li><p>动态代理模式</p></li>
+</ul>
+<ol type="1">
+<li>JDK动态代理：利用反射机制生成一个实现代理接口的匿名类，在调用具体方法前调用InvokeHandler来处理。</li>
+<li>CGlib动态代理：利用ASM（开源的Java字节码编辑库，操作字节码）开源包，将代理对象类的class文件加载进来，通过修改其字节码生成子类来处理。</li>
+<li>区别：JDK代理只能对实现接口的类生成代理；CGlib是针对类实现代理，对指定的类生成一个子类，并覆盖其中的方法，这种通过继承类的实现方式，不能代理final修饰的类。</li>
+</ol>
+<ul>
+<li><p>java类加载器 工作机制，类加载在哪个区域进行</p></li>
+<li><p>java封装继承多态的实现原理</p></li>
+<li><p>HashMap和concurrentthashmap</p></li>
+<li><p>锁机制，读写锁，乐观锁，悲观锁</p></li>
+<li><p>synchesized, volate关键字，cas的含义和问题</p></li>
+<li><p>java的线程模型和区域划分</p></li>
+<li><p>java的线程池</p></li>
+<li><p>Spring IOC 和AOP的理解</p></li>
+<li><p>设计模式，SpringBoot中的设计模式</p>
+<p>工厂模式：BeanFactory就是简单工厂模式的体现，用来创建对象的实例；</p>
+<p>单例模式：Bean默认为单例模式。</p>
+<p>代理模式：Spring的AOP功能用到了JDK的动态代理和CGLIB字节码生成技术；</p>
+<p>模板方法：用来解决代码重复的问题。比如. RestTemplate, JmsTemplate, JpaTemplate。</p>
+<p>观察者模式：定义对象键一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都会得到通知被制动更新，如Spring中listener的实现–ApplicationListener。</p></li>
+<li><p>单例模式 参考<a href="https://www.runoob.com/design-pattern/singleton-pattern.html">单例模式</a></p></li>
+</ul>
+<p>饿汉式，多线程安全，类加载时就初始化，Lazy初始化：否 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>双重校验锁 多线程安全，Lazy初始化：是 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span>( Singleton.class)&#123;</span><br><span class="line">                <span class="keyword">if</span> (singleton == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        retunr singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 枚举 Lazy初始化：否，多线程初始化：是 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">pubic <span class="keyword">enum</span> Singleton&#123;</span><br><span class="line">    INSTANCE; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>事务机制和SpringBoot,Mysql数据库中的实现和底层原理</li>
+</ul>
+<p>参考： <a href="https://www.runoob.com/java/java-basic-datatypes.html">菜鸟教程</a> <a href="https://zhuanlan.zhihu.com/p/75577371">知乎专栏：面试必问：Java中String类型为什么设计成不可变的？</a> <a href="https://www.w3cschool.cn/java/java-reflex.html">w3cschool.cn</a> <a href="https://zhuanlan.zhihu.com/p/25228545"></a> <a href="https://www.runoob.com/design-pattern/singleton-pattern.html">单例模式</a></p>
+]]></content>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java job interview 20210726</title>
+    <url>/2021/07/26/java-job-interview-20210726_/</url>
+    <content><![CDATA[<p>准备java后端开发面试的问题</p>
+<ul>
+<li>java的基本类型，String类型，StringBuffer和StringBuffer Java提供了8种基本类型：<code>byte, short, int, long, float, double, boolean, char</code></li>
+</ul>
+<p>String类是java中创建和操作字符串的类。属于引用类型。是不可变的。 java中不可变对象的定义： （1）类内部所有的字段都是final修饰的。（2）类内部所有的字段都是私有的，也就是被private修饰。（3）类不能够被集成和拓展。（4）类不能够对外提供哪些能够修改内部状态的方法，setter方法也不行。（5）类内部的字段如果是引用，也就是说可以指向可变对象，那我们程序员不能获取这个应用。 String类用final修饰，并且内容的字符串数组也是<code>private final char value[]</code>(java 1.8),java 9之后改为了`<code>private final char value[]</code>，通常情况下是不能进行修改的。 如何通过反射修改String 通过反射机制来修改 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line">String str = <span class="string">&quot;aaaaaaa&quot;</span>;</span><br><span class="line">Field field = String.class.getDeclaredField(&quot;value&quot;);</span><br><span class="line">field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">char</span> [] value = (<span class="keyword">char</span> []) field.get(str);</span><br><span class="line"><span class="comment">// if java &gt;=1.9, using next line.</span></span><br><span class="line"><span class="comment">// byte [] value = (byte []) field.get(str);</span></span><br><span class="line">value[<span class="number">0</span>] = <span class="string">&#x27;b&#x27;</span>;</span><br><span class="line">System.out.println(str);</span><br></pre></td></tr></table></figure> 为什么java中String类型是不可变的： 第一：在Java程序中String类型是使用最多的，这就牵扯到大量的增删改查，每次增删改差之前其实jvm需要检查一下这个String对象的安全性，就是通过hashcode，当设计成不可变对象时候，就保证了每次增删改查的hashcode的唯一性，也就可以放心的操作。 第二：网络连接地址URL,文件路径path通常情况下都是以String类型保存, 假若String不是固定不变的,将会引起各种安全隐患。就好比我们的密码不能以String的类型保存，，如果你将密码以明文的形式保存成字符串，那么它将一直留在内存中，直到垃圾收集器把它清除。而由于字符串被放在字符串缓冲池中以方便重复使用，所以它就可能在内存中被保留很长时间，而这将导致安全隐患。第三：字符串值是被保留在常量池中的，也就是说假若字符串对象允许改变,那么将会导致各种逻辑错误。</p>
+<p>StringBuffer和StringBuilder是字符串修改时使用，修改时对对象本身进行操作，不是生成新的对象。 StringBuffer是线程安全的，StringBuilder不是线程安全的（不能同步访问，但是效率更高</p>
+<ul>
+<li><p>反射机制</p></li>
+<li><p>动态代理模式</p></li>
+</ul>
+<ol type="1">
+<li>JDK动态代理：利用反射机制生成一个实现代理接口的匿名类，在调用具体方法前调用InvokeHandler来处理。</li>
+<li>CGlib动态代理：利用ASM（开源的Java字节码编辑库，操作字节码）开源包，将代理对象类的class文件加载进来，通过修改其字节码生成子类来处理。</li>
+<li>区别：JDK代理只能对实现接口的类生成代理；CGlib是针对类实现代理，对指定的类生成一个子类，并覆盖其中的方法，这种通过继承类的实现方式，不能代理final修饰的类。</li>
+</ol>
+<ul>
+<li><p>java类加载器 工作机制，类加载在哪个区域进行</p></li>
+<li><p>java封装继承多态的实现原理</p></li>
+<li><p>HashMap和concurrentthashmap</p></li>
+<li><p>锁机制，读写锁，乐观锁，悲观锁</p></li>
+<li><p>synchesized, volate关键字，cas的含义和问题</p></li>
+<li><p>java的线程模型和区域划分</p></li>
+<li><p>java的线程池</p></li>
+<li><p>Spring IOC 和AOP的理解</p></li>
+<li><p>设计模式，SpringBoot中的设计模式</p>
+<p>工厂模式：BeanFactory就是简单工厂模式的体现，用来创建对象的实例；</p>
+<p>单例模式：Bean默认为单例模式。</p>
+<p>代理模式：Spring的AOP功能用到了JDK的动态代理和CGLIB字节码生成技术；</p>
+<p>模板方法：用来解决代码重复的问题。比如. RestTemplate, JmsTemplate, JpaTemplate。</p>
+<p>观察者模式：定义对象键一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都会得到通知被制动更新，如Spring中listener的实现–ApplicationListener。</p></li>
+<li><p>单例模式 参考<a href="https://www.runoob.com/design-pattern/singleton-pattern.html">单例模式</a></p></li>
+</ul>
+<p>饿汉式，多线程安全，类加载时就初始化，Lazy初始化：否 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>双重校验锁 多线程安全，Lazy初始化：是 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span>( Singleton.class)&#123;</span><br><span class="line">                <span class="keyword">if</span> (singleton == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        retunr singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 枚举 Lazy初始化：否，多线程初始化：是 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">pubic <span class="keyword">enum</span> Singleton&#123;</span><br><span class="line">    INSTANCE; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>事务机制和SpringBoot,Mysql数据库中的实现和底层原理</li>
+</ul>
+<p>参考： <a href="https://www.runoob.com/java/java-basic-datatypes.html">菜鸟教程</a> <a href="https://zhuanlan.zhihu.com/p/75577371">知乎专栏：面试必问：Java中String类型为什么设计成不可变的？</a> <a href="https://www.w3cschool.cn/java/java-reflex.html">w3cschool.cn</a> <a href="https://zhuanlan.zhihu.com/p/25228545"></a> <a href="https://www.runoob.com/design-pattern/singleton-pattern.html">单例模式</a></p>
+]]></content>
+      <tags>
+        <tag>java</tag>
       </tags>
   </entry>
 </search>
