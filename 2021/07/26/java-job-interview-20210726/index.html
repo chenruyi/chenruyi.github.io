@@ -28,7 +28,7 @@
 <meta property="og:description" content="准备java后端开发面试的问题">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-07-26T14:12:33.000Z">
-<meta property="article:modified_time" content="2021-07-26T15:55:17.433Z">
+<meta property="article:modified_time" content="2021-07-26T15:56:35.038Z">
 <meta property="article:author" content="Ruyi">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -203,7 +203,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-07-26 22:12:33 / Modified: 23:55:17" itemprop="dateCreated datePublished" datetime="2021-07-26T22:12:33+08:00">2021-07-26</time>
+              <time title="Created: 2021-07-26 22:12:33 / Modified: 23:56:35" itemprop="dateCreated datePublished" datetime="2021-07-26T22:12:33+08:00">2021-07-26</time>
             </span>
 
           
@@ -220,7 +220,9 @@
         <p>准备java后端开发面试的问题 <a id="more"></a></p>
 <h2 id="java的基本类型string类型stringbuffer和stringbuffer">java的基本类型，String类型，StringBuffer和StringBuffer</h2>
 <p>Java提供了8种基本类型：<code>byte, short, int, long, float, double, boolean, char</code></p>
-<p>String类是java中创建和操作字符串的类。属于引用类型。是不可变的。 java中不可变对象的定义： （1）类内部所有的字段都是final修饰的。（2）类内部所有的字段都是私有的，也就是被private修饰。（3）类不能够被集成和拓展。（4）类不能够对外提供哪些能够修改内部状态的方法，setter方法也不行。（5）类内部的字段如果是引用，也就是说可以指向可变对象，那我们程序员不能获取这个应用。 String类用final修饰，并且内容的字符串数组也是<code>private final char value[]</code>(java 1.8),java 9之后改为了`<code>private final char value[]</code>，通常情况下是不能进行修改的。 如何通过反射修改String 通过反射机制来修改 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line">String str = <span class="string">&quot;aaaaaaa&quot;</span>;</span><br><span class="line">Field field = String.class.getDeclaredField(&quot;value&quot;);</span><br><span class="line">field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">char</span> [] value = (<span class="keyword">char</span> []) field.get(str);</span><br><span class="line"><span class="comment">// if java &gt;=1.9, using next line.</span></span><br><span class="line"><span class="comment">// byte [] value = (byte []) field.get(str);</span></span><br><span class="line">value[<span class="number">0</span>] = <span class="string">&#x27;b&#x27;</span>;</span><br><span class="line">System.out.println(str);</span><br></pre></td></tr></table></figure> 为什么java中String类型是不可变的： 第一：在Java程序中String类型是使用最多的，这就牵扯到大量的增删改查，每次增删改差之前其实jvm需要检查一下这个String对象的安全性，就是通过hashcode，当设计成不可变对象时候，就保证了每次增删改查的hashcode的唯一性，也就可以放心的操作。 第二：网络连接地址URL,文件路径path通常情况下都是以String类型保存, 假若String不是固定不变的,将会引起各种安全隐患。就好比我们的密码不能以String的类型保存，，如果你将密码以明文的形式保存成字符串，那么它将一直留在内存中，直到垃圾收集器把它清除。而由于字符串被放在字符串缓冲池中以方便重复使用，所以它就可能在内存中被保留很长时间，而这将导致安全隐患。第三：字符串值是被保留在常量池中的，也就是说假若字符串对象允许改变,那么将会导致各种逻辑错误。</p>
+<p>String类是java中创建和操作字符串的类。属于引用类型。是不可变的。 java中不可变对象的定义： （1）类内部所有的字段都是final修饰的。（2）类内部所有的字段都是私有的，也就是被private修饰。（3）类不能够被集成和拓展。（4）类不能够对外提供哪些能够修改内部状态的方法，setter方法也不行。（5）类内部的字段如果是引用，也就是说可以指向可变对象，那我们程序员不能获取这个应用。</p>
+<p>String类用final修饰，并且内容的字符串数组也是<code>private final char value[]</code>(java 1.8),java 9之后改为了`<code>private final char value[]</code>，通常情况下是不能进行修改的。</p>
+<p>如何通过反射修改String <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line">String str = <span class="string">&quot;aaaaaaa&quot;</span>;</span><br><span class="line">Field field = String.class.getDeclaredField(&quot;value&quot;);</span><br><span class="line">field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">char</span> [] value = (<span class="keyword">char</span> []) field.get(str);</span><br><span class="line"><span class="comment">// if java &gt;=1.9, using next line.</span></span><br><span class="line"><span class="comment">// byte [] value = (byte []) field.get(str);</span></span><br><span class="line">value[<span class="number">0</span>] = <span class="string">&#x27;b&#x27;</span>;</span><br><span class="line">System.out.println(str);</span><br></pre></td></tr></table></figure> 为什么java中String类型是不可变的： 第一：在Java程序中String类型是使用最多的，这就牵扯到大量的增删改查，每次增删改差之前其实jvm需要检查一下这个String对象的安全性，就是通过hashcode，当设计成不可变对象时候，就保证了每次增删改查的hashcode的唯一性，也就可以放心的操作。 第二：网络连接地址URL,文件路径path通常情况下都是以String类型保存, 假若String不是固定不变的,将会引起各种安全隐患。就好比我们的密码不能以String的类型保存，，如果你将密码以明文的形式保存成字符串，那么它将一直留在内存中，直到垃圾收集器把它清除。而由于字符串被放在字符串缓冲池中以方便重复使用，所以它就可能在内存中被保留很长时间，而这将导致安全隐患。第三：字符串值是被保留在常量池中的，也就是说假若字符串对象允许改变,那么将会导致各种逻辑错误。</p>
 <p>StringBuffer和StringBuilder是字符串修改时使用，修改时对对象本身进行操作，不是生成新的对象。 StringBuffer是线程安全的，StringBuilder不是线程安全的（不能同步访问，但是效率更高</p>
 <h2 id="反射机制">反射机制</h2>
 <h2 id="动态代理模式">动态代理模式</h2>
